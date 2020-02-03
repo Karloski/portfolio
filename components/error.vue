@@ -3,17 +3,9 @@
     <p class="mb-4">Command not found. Try one of the following:</p>
 
     <table>
-      <tr>
-        <td>ls</td>
-        <td>Show a list of all available pages</td>
-      </tr>
-      <tr>
-        <td>cat [page]</td>
-        <td>Displays [page] underneath the command line</td>
-      </tr>
-      <tr>
-        <td>clear</td>
-        <td>Clears the space underneath the command line</td>
+      <tr v-for="command of $store.getters['commands/get']" :key="command">
+          <td>{{ command }} {{ $store.getters[`commands/${command}/params`] ? $store.getters[`commands/${command}/params`].reduce((carry, i) => carry += ` ${i}`, '') : '' }}</td>
+          <td>{{ $store.getters[`commands/${command}/description`] }}</td>
       </tr>
     </table>
   </div>

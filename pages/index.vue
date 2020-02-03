@@ -17,10 +17,6 @@
 <script>
 import components from '../components/export'
 
-const commands = {
-  help: '', ls: '', cat: '', clear: ''
-}
-
 export default {
   components: {
     ...components
@@ -38,8 +34,10 @@ export default {
     submit () {
       const parts = this.input.split(' ')
 
-      if (commands[parts[0]] === undefined) {
+      if (this.$store.getters['commands/has'](parts[0]) === undefined) {
         this.component = 'error'
+      } else if (parts[0] === 'clear') {
+        this.component = null
       } else {
         this.component = parts[0]
       }
