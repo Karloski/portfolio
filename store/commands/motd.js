@@ -1,5 +1,5 @@
 export const state = () => ({
-  description: 'Clears the space underneath the command line',
+  description: 'Displays the message of the day',
   params: []
 })
 

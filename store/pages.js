@@ -1,6 +1,6 @@
 export const state = () => ({
   list: [
-    'help', 'clear', 'cat', 'ls', 'motd'
+    'home', 'about', 'portfolio', 'social'
   ],
   active: null
 })
@@ -20,9 +20,7 @@ export const getters = {
 }
 
 export const mutations = {
-  active (state, payload) {
-    state.active = payload
-  }
+
 }
 
 export const actions = {

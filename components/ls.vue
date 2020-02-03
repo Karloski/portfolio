@@ -1,11 +1,8 @@
 <template>
   <div>
-      <div class="-mx-4">
-          <span class="px-4">home</span>
-          <span class="px-4">about</span>
-          <span class="px-4">portfolio</span>
-          <span class="px-4">social</span>
-      </div>
+    <div class="-mx-4">
+      <span v-for="page of $store.getters['pages/get']" :key="page" class="px-4">{{ page }}</span>
+    </div>
   </div>
 </template>
 

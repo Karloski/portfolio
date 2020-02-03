@@ -1,8 +1,23 @@
 <template>
   <div class="flex text-white font-bash flex-col bg-gray-900 h-screen w-screen p-4">
+    <div v-if="!$store.getters['commands/active']" class="-my-2">
+      <p class="py-2">
+        Welcome to carlwithak.com 1.04 LTS
+      </p>
+      <p class="py-2">
+        <ul>
+          <li class="whitespace-pre">  * Help: Type 'help'</li>
+          <li class="whitespace-pre">  * Pages: Type cat [page] (e.g., cat portfolio)</li>
+          <li class="whitespace-pre">  * MOTD: For the message of the day, type 'motd'</li>
+        </ul>
+      </p>
+      <p class="py-2">
+        To run a command, type it into the input box below.
+      </p>
+    </div>
     <div class="flex -mx-2">
       <div class="px-2">
-        <span>guest@CARLWITHAK-IBHU8V4:~$</span>
+        <span>guest@CARLWITHAK-CO-UK:~$</span>
       </div>
       <div class="px-2 flex-auto">
         <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Type help and press enter to start" @keydown.enter="submit">
@@ -41,6 +56,11 @@ export default {
       } else {
         this.component = parts[0]
       }
+    }
+  },
+  watch: {
+    component (newState, oldState) {
+      this.$store.commit('commands/active', newState)
     }
   }
 }
