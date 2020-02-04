@@ -28,6 +28,9 @@ export default {
   components: {
     ...components
   },
+  props: {
+    command: String
+  },
   data () {
     return {
       input: ''
@@ -55,8 +58,16 @@ export default {
       if (this.$store.getters['commands/has'](command) === undefined) {
         this.$store.commit('active', 'error')
       } else {
-        this.$store.dispatch(`commands/${command}/exec`, args)
+        // this.$store.dispatch(`commands/${command}/exec`, args)
+
+        // FIXME: Defer to owning class
+        this.$router.push({ path: command })
       }
+    }
+  },
+  mounted () {
+    if (this.command) {
+      this.$store.dispatch(`commands/${this.command}/exec`, this.command)
     }
   }
 }

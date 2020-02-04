@@ -52,5 +52,16 @@ export default {
     */
     extend (config, ctx) {
     }
+  },
+  router: {
+    base: '/',
+    extendRoutes (routes, resolve) {
+      routes.push({
+        path: '/:command',
+        alias: '*',
+        component: resolve(__dirname, 'pages/index.vue'),
+        props: true
+      })
+    }
   }
 }
