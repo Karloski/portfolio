@@ -11,3 +11,9 @@ export const getters = {
     return state.params
   }
 }
+
+export const actions = {
+  exec ({ state, commit }) {
+    commit('active', 'ls', { root: true })
+  }
+}

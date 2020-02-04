@@ -1,23 +1,9 @@
 <template>
   <div class="flex text-white font-bash flex-col bg-gray-900 h-screen w-screen p-4">
-    <div v-if="!$store.getters['commands/active']" class="-my-2">
-      <p class="py-2">
-        Welcome to carlwithak.com 1.04 LTS
-      </p>
-      <p class="py-2">
-        <ul>
-          <li class="whitespace-pre">  * Help: Type 'help'</li>
-          <li class="whitespace-pre">  * Pages: Type cat [page] (e.g., cat portfolio)</li>
-          <li class="whitespace-pre">  * MOTD: For the message of the day, type 'motd'</li>
-        </ul>
-      </p>
-      <p class="py-2">
-        To run a command, type it into the input box below.
-      </p>
-    </div>
+    <div v-if="!$store.getters['active']" class="-my-2" v-html="$store.getters['commands/motd/message']" />
     <div class="flex -mx-2">
       <div class="px-2">
-        <span>guest@CARLWITHAK-CO-UK:~$</span>
+        <span>guest@CARLWITHAK-CO-UK:{{ page }}$</span>
       </div>
       <div class="px-2 flex-auto">
         <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Type help and press enter to start" @keydown.enter="submit">
@@ -30,7 +16,13 @@
 </template>
 
 <script>
-import components from '../components/export'
+import commands from '../components/commands/export'
+import pages from '../components/pages/export'
+
+// FIXME: May cause conflicts
+const components = {
+  ...commands, ...pages
+}
 
 export default {
   components: {
@@ -38,29 +30,33 @@ export default {
   },
   data () {
     return {
-      component: null,
       input: ''
     }
   },
-  computed: () => {
-    return components[this.component]
+  computed: {
+    component () {
+      return components[this.$store.state.active]
+    },
+    page () {
+      let page = '~'
+
+      if (this.$store.state.active && this.$store.getters['pages/has'](this.$store.state.active)) {
+        page += `/${this.$store.state.active}`
+      }
+
+      return page
+    }
   },
   methods: {
     submit () {
-      const parts = this.input.split(' ')
+      const args = this.input.split(' ')
+      const command = args.shift()
 
-      if (this.$store.getters['commands/has'](parts[0]) === undefined) {
-        this.component = 'error'
-      } else if (parts[0] === 'clear') {
-        this.component = null
+      if (this.$store.getters['commands/has'](command) === undefined) {
+        this.$store.commit('active', 'error')
       } else {
-        this.component = parts[0]
+        this.$store.dispatch(`commands/${command}/exec`, args)
       }
-    }
-  },
-  watch: {
-    component (newState, oldState) {
-      this.$store.commit('commands/active', newState)
     }
   }
 }

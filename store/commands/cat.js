@@ -11,3 +11,13 @@ export const getters = {
     return state.params
   }
 }
+
+export const actions = {
+  exec ({ commit, dispatch }, args) {
+    if (args[0] !== undefined) {
+      dispatch(`pages/${args[0]}/display`, {}, { root: true })
+    } else {
+      commit('active', 'cat', { root: true })
+    }
+  }
+}
