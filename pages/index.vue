@@ -28,9 +28,6 @@ export default {
   components: {
     ...components
   },
-  props: {
-    command: String
-  },
   data () {
     return {
       input: ''
@@ -55,19 +52,20 @@ export default {
       const args = this.input.split(' ')
       const command = args.shift()
 
-      if (this.$store.getters['commands/has'](command) === undefined) {
-        this.$store.commit('active', 'error')
-      } else {
-        // this.$store.dispatch(`commands/${command}/exec`, args)
-
-        // FIXME: Defer to owning class
-        this.$router.push({ path: command })
-      }
+      this.$router.push({ path: command, query: { args } })
     }
   },
   mounted () {
-    if (this.command) {
-      this.$store.dispatch(`commands/${this.command}/exec`, this.command)
+    const route = this.$router.currentRoute.path.split('/').pop()
+
+    if (route) {
+      if (this.$store.getters['commands/has'](route) === undefined) {
+        this.$store.commit('active', 'error')
+      } else {
+        this.$store.dispatch(`commands/${route}/exec`, this.$router.currentRoute.query.args)
+      }
+
+      this.input = route
     }
   }
 }

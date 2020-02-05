@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="-mx-4">
-      <span v-for="page of $store.getters['pages/get']" :key="page" class="px-4">{{ page }}</span>
+      <nuxt-link v-for="page of $store.getters['pages/get']" :to="`cat?args=${page}`" :key="page" class="px-4">{{ page }}</nuxt-link>
     </div>
   </div>
 </template>
