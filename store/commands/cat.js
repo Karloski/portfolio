@@ -15,7 +15,7 @@ export const getters = {
 export const actions = {
   exec ({ commit, dispatch }, args) {
     if (args[0] !== undefined) {
-      dispatch(`pages/${args[0]}/display`, {}, { root: true })
+      dispatch(`pages/${args[0]}/display`, args, { root: true })
     } else {
       commit('active', 'cat', { root: true })
     }

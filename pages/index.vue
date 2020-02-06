@@ -3,7 +3,7 @@
     <div v-if="!$store.getters['active']" class="-my-2" v-html="$store.getters['commands/motd/message']" />
     <div class="flex -mx-2">
       <div class="px-2">
-        <span>guest@CARLWITHAK-CO-UK:{{ page }}$</span>
+        <span>guest@CARLWITHAK-CO-UK:{{ dir }}$</span>
       </div>
       <div class="px-2 flex-auto">
         <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Type help and press enter to start" @keydown.enter="submit">
@@ -33,18 +33,16 @@ export default {
       input: ''
     }
   },
+  key (route) {
+    return route.fullPath
+  },
   computed: {
     component () {
       return components[this.$store.state.active]
     },
-    page () {
-      let page = '~'
-
-      if (this.$store.state.active && this.$store.getters['pages/has'](this.$store.state.active)) {
-        page += `/${this.$store.state.active}`
-      }
-
-      return page
+    dir () {
+      // TODO: Use the current dir
+      return '~'
     }
   },
   methods: {
@@ -65,7 +63,16 @@ export default {
         this.$store.dispatch(`commands/${route}/exec`, this.$router.currentRoute.query.args)
       }
 
-      this.input = route
+      if (this.$router.currentRoute.query.args) {
+        if (Array.isArray(this.$router.currentRoute.query.args)) {
+          this.input = route + this.$router.currentRoute.query.args.reduce((carry, arg) => {
+            carry += ` ${arg}`
+            return carry
+          }, '')
+        } else {
+          this.input = route
+        }
+      }
     }
   }
 }

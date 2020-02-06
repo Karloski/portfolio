@@ -57,10 +57,9 @@ export default {
     base: '/',
     extendRoutes (routes, resolve) {
       routes.push({
-        path: '/:command',
+        path: '/',
         alias: '*',
         component: resolve(__dirname, 'pages/index.vue'),
-        props: true
       })
     }
   }
