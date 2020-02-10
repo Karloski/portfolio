@@ -1,6 +1,17 @@
 export const state = () => ({
   list: Object.keys(require('../components/pages/export').default),
-  active: null
+  active: null,
+  listing: {
+    '~': {
+      about: {
+        mtg: 'file',
+        programming: 'file',
+        football: 'file',
+        cybersecurity: 'file',
+        gaming: 'file'
+      }
+    }
+  }
 })
 
 export const getters = {

@@ -2,7 +2,7 @@
     <div>
         <table>
             <tr v-for="command of $store.getters['commands/get']" :key="command">
-                <td>{{ command }} {{ $store.getters[`commands/${command}/params`].reduce((carry, i) => carry += ` ${i}`, '') }}</td>
+                <td>{{ command }}</td>
                 <td>{{ $store.getters[`commands/${command}/description`] }}</td>
             </tr>
         </table>

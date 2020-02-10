@@ -1,6 +1,7 @@
 export const state = () => ({
   description: 'Show a list of all available pages',
-  params: []
+  params: ['--help', '-l'],
+  args: []
 })
 
 export const getters = {
@@ -9,11 +10,21 @@ export const getters = {
   },
   params (state) {
     return state.params
+  },
+  args (state) {
+    return state.args
+  }
+}
+
+export const mutations = {
+  args (state, payload) {
+    state.args = payload
   }
 }
 
 export const actions = {
-  exec ({ state, commit }) {
+  exec ({ state, commit }, args) {
+    commit('args', args)
     commit('active', 'ls', { root: true })
   }
 }
