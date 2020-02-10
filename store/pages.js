@@ -1,7 +1,5 @@
 export const state = () => ({
-  list: [
-    'home', 'about', 'portfolio', 'social'
-  ],
+  list: Object.keys(require('../components/pages/export').default),
   active: null
 })
 

@@ -1,7 +1,5 @@
 export const state = () => ({
-  list: [
-    'help', 'clear', 'cat', 'ls', 'motd'
-  ],
+  list: ['clear', 'motd', 'ls', 'cat', 'help'],
   active: null
 })
 

@@ -1,7 +1,7 @@
 <template>
   <div class="-my-2">
     <p class="py-2">
-      No page provided. Please provide a page as a positional argument to this command
+      Page not found or no page provided
     </p>
     <p class="py-2">
       Please use the 'ls' command for a list of pages

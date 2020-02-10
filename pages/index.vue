@@ -6,7 +6,7 @@
         <span>guest@CARLWITHAK-CO-UK:{{ dir }}$</span>
       </div>
       <div class="px-2 flex-auto">
-        <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Type help and press enter to start" @keydown.enter="submit">
+        <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Enter your command here" @keydown.enter="submit">
       </div>
     </div>
     <keep-alive>
@@ -25,9 +25,7 @@ const components = {
 }
 
 export default {
-  components: {
-    ...components
-  },
+  components,
   data () {
     return {
       input: ''
@@ -57,21 +55,23 @@ export default {
     const route = this.$router.currentRoute.path.split('/').pop()
 
     if (route) {
+      if (this.$router.currentRoute.query.args !== undefined) {
+        if (!Array.isArray(this.$router.currentRoute.query.args)) {
+          this.$router.currentRoute.query.args = [this.$router.currentRoute.query.args]
+        }
+
+        this.input = route + this.$router.currentRoute.query.args.reduce((carry, arg) => {
+          carry += ` ${arg}`
+          return carry
+        }, '')
+      } else {
+        this.input = route
+      }
+
       if (this.$store.getters['commands/has'](route) === undefined) {
         this.$store.commit('active', 'error')
       } else {
         this.$store.dispatch(`commands/${route}/exec`, this.$router.currentRoute.query.args)
-      }
-
-      if (this.$router.currentRoute.query.args) {
-        if (Array.isArray(this.$router.currentRoute.query.args)) {
-          this.input = route + this.$router.currentRoute.query.args.reduce((carry, arg) => {
-            carry += ` ${arg}`
-            return carry
-          }, '')
-        } else {
-          this.input = route
-        }
       }
     }
   }

@@ -1,6 +1,8 @@
 <template>
   <div>
-    Hi. My name is Karl. I am an aspiring web developer.
+    <p>
+      Hi. My name is Karl. I am a full-stack web developer.
+    </p>
   </div>
 </template>
 
