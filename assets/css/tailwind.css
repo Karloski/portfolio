@@ -25,3 +25,11 @@
     font-weight: bold;
     src: url(/fonts/ubuntu/monospace/UbuntuMono-BI.ttf) format("ttf");
 }
+
+a {
+    text-decoration: underline;
+}
+
+a, p, li {
+    word-break: break-word;
+}

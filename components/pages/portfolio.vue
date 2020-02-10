@@ -1,6 +1,10 @@
 <template>
   <div>
-    See below for examples of my work
+    <ul>
+      <li>Education</li>
+      <li>Projects</li>
+      <li>Skills</li>
+    </ul>
   </div>
 </template>
 

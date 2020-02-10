@@ -3,10 +3,16 @@
     <div v-if="!$store.getters['active']" class="-my-2" v-html="$store.getters['commands/motd/message']" />
     <div class="flex -mx-2">
       <div class="px-2">
-        <span>guest@CARLWITHAK-CO-UK:{{ dir }}$</span>
+        <span>guest@CARLWITHAK-CO-UK:{{ $store.getters['dir'] }}$</span>
       </div>
       <div class="px-2 flex-auto">
-        <input v-model="input" class="w-full bg-transparent outline-none" type="text" placeholder="Enter your command here" @keydown.enter="submit">
+        <input
+          v-model="input"
+          class="w-full bg-transparent outline-none"
+          type="text"
+          placeholder="Enter your command here"
+          @keydown.enter="submit"
+          ref="command">
       </div>
     </div>
     <keep-alive>
@@ -37,10 +43,6 @@ export default {
   computed: {
     component () {
       return components[this.$store.state.active]
-    },
-    dir () {
-      // TODO: Use the current dir
-      return '~'
     }
   },
   methods: {
@@ -74,6 +76,8 @@ export default {
         this.$store.dispatch(`commands/${route}/exec`, this.$router.currentRoute.query.args)
       }
     }
+
+    this.$refs.command.focus()
   }
 }
 </script>
