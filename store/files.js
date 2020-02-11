@@ -1,12 +1,12 @@
 export const state = () => ({
   active: null, // The active file
   listing: [
-    { name: about, files: [2,3,4], type: 'dir', parent: '~' },
-    { name: mtg, type: 'file' },
-    { name: programming, type: 'file' },
-    { name: cybersecurity, type: 'file' },
-    { name: gaming, type: 'file' },
-    { name: football, type: 'file' },
+    { name: 'about', files: [2, 3, 4], type: 'dir', parent: '~' },
+    { name: 'mtg', type: 'file' },
+    { name: 'programming', type: 'file' },
+    { name: 'cybersecurity', type: 'file' },
+    { name: 'gaming', type: 'file' },
+    { name: 'football', type: 'file' }
   ]
 })
 
