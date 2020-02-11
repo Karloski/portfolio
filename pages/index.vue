@@ -23,11 +23,11 @@
 
 <script>
 import commands from '../components/commands/export'
-import pages from '../components/pages/export'
+import files from '../components/files/export'
 
 // FIXME: May cause conflicts
 const components = {
-  ...commands, ...pages
+  ...commands, ...files
 }
 
 export default {

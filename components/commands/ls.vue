@@ -19,15 +19,15 @@
     <div v-else>
       <div v-if="args.indexOf('-l') !== -1">
         <ul>
-          <li v-for="page of $store.getters['pages/get']" :key="page">
-            <span>{{ $store.getters[`pages/${page}/type`] }}</span>
-            <nuxt-link v-if="$store.getters[`pages/${page}/type`] === 'file'" :to="`cat?args=${page}`" >{{ page }}</nuxt-link>
-            <nuxt-link v-else :to="`cd?args=${page}`" >{{ page }}</nuxt-link>
+          <li v-for="file of $store.getters['files/get']($store.getters['dir'])" :key="file">
+            <span>{{ $store.getters[`files/${file}/type`] }}</span>
+            <nuxt-link v-if="$store.getters[`files/${file}/type`] === 'file'" :to="`cat?args=${file}`" >{{ file }}</nuxt-link>
+            <nuxt-link v-else :to="`cd?args=${file}`" >{{ file }}</nuxt-link>
           </li>
         </ul>
       </div>
       <div v-else class="-mx-4">
-        <nuxt-link v-for="page of $store.getters['pages/get']" :to="`cat?args=${page}`" :key="page" class="px-4">{{ page }}</nuxt-link>
+        <nuxt-link v-for="file of $store.getters['files/get']" :to="`cat?args=${file}`" :key="file" class="px-4">{{ file }}</nuxt-link>
       </div>
     </div>
   </div>

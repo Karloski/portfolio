@@ -1,6 +1,7 @@
 export const state = () => ({
   active: null,
-  dir: '~'
+  dir: '~',
+  files: [] // Cached files for the current directory
 })
 
 export const getters = {
@@ -9,6 +10,9 @@ export const getters = {
   },
   dir (state) {
     return state.dir
+  },
+  files (state) {
+    return state.files
   }
 }
 
@@ -18,6 +22,9 @@ export const mutations = {
   },
   dir (state, payload) {
     state.dir = payload
+  },
+  files (state, payload) {
+    state.files = payload
   }
 }
 
