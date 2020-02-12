@@ -1,7 +1,6 @@
 export const state = () => ({
-  active: null,
-  dir: '~',
-  files: [] // Cached files for the current directory
+  active: undefined,
+  dir: 0
 })
 
 export const getters = {
@@ -29,5 +28,7 @@ export const mutations = {
 }
 
 export const actions = {
-
+  dir ({ state, getters }, dir) {
+    commit('dir', dir)
+  }
 }

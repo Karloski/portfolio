@@ -19,15 +19,20 @@
     <div v-else>
       <div v-if="args.indexOf('-l') !== -1">
         <ul>
-          <li v-for="file of $store.getters['files/get']($store.getters['dir'])" :key="file">
-            <span>{{ $store.getters[`files/${file}/type`] }}</span>
-            <nuxt-link v-if="$store.getters[`files/${file}/type`] === 'file'" :to="`cat?args=${file}`" >{{ file }}</nuxt-link>
-            <nuxt-link v-else :to="`cd?args=${file}`" >{{ file }}</nuxt-link>
+          <li v-for="file of files" :key="file">
+            <span>{{ $store.getters['files/get'](file).type }}</span>
+            <nuxt-link v-if="$store.getters['files/get'](file).type === 'file'" :to="`cat?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
+            <nuxt-link v-else :to="`cd?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
           </li>
         </ul>
       </div>
-      <div v-else class="-mx-4">
-        <nuxt-link v-for="file of $store.getters['files/get']" :to="`cat?args=${file}`" :key="file" class="px-4">{{ file }}</nuxt-link>
+      <div v-else>
+        <ul>
+          <li v-for="file of files" :key="file">
+            <nuxt-link v-if="$store.getters['files/get'](file).type === 'file'" :to="`cat?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
+            <nuxt-link v-else :to="`cd?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -38,6 +43,10 @@ export default {
   computed: {
     args () {
       return this.$store.getters['commands/ls/args'] || []
+    },
+    files () {
+      // FIXME: Not particularly defensive
+      return this.$store.getters['files/get'](this.$store.getters['dir']).files
     }
   },
   mounted () {

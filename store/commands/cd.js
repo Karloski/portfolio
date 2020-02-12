@@ -13,8 +13,8 @@ export const getters = {
 }
 
 export const actions = {
-  exec ({ state, commit, rootGetters, rootState }, args) {
-    commit('files', rootGetters['files/find'](args[0], 'dir', rootGetters.dir).files, { root: true })
+  exec ({ commit }, args) {
+    // FIXME: Check args[0] (dir) exists
     commit('dir', args[0], { root: true })
   }
 }

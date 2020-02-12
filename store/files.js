@@ -1,7 +1,9 @@
 export const state = () => ({
   active: null, // The active file
+  // Might need to add the parent field back in later for easy reference
   listing: [
-    { name: 'about', files: [2, 3, 4], type: 'dir', parent: '~' },
+    { name: '~', files: [1], type: 'dir' },
+    { name: 'about', files: [2, 3, 4, 5, 6], type: 'dir' },
     { name: 'mtg', type: 'file' },
     { name: 'programming', type: 'file' },
     { name: 'cybersecurity', type: 'file' },
@@ -11,17 +13,12 @@ export const state = () => ({
 })
 
 export const getters = {
-  get (state) {
+  listing (state) {
     return state.listing
   },
-  has (state) {
-    return (dir) => {
-      return Object.keys(state.listing)
-    }
-  },
-  find (state) {
-    return (name, type = 'file', parent = '~') => {
-      return state.listing.find(d => d.name === name && d.type === type && d.parent === parent)
+  get (state) {
+    return (id) => {
+      return state.listing[id]
     }
   },
   active (state) {
