@@ -25,11 +25,7 @@ export const mutations = {
 export const actions = {
   exec ({ commit, dispatch, rootGetters }, args) {
     if (args[0] !== undefined) {
-      if (rootGetters['pages/has'](args[0])) {
-        dispatch(`pages/${args[0]}/display`, args, { root: true })
-      } else {
-        commit('active', 'cat', { root: true })
-      }
+      console.log(args)
     }
   }
 }

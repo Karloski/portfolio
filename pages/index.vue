@@ -3,7 +3,7 @@
     <div v-if="!$store.getters['active']" class="-my-2" v-html="$store.getters['commands/motd/message']" />
     <div class="flex -mx-2">
       <div class="px-2">
-        <span>guest@CARLWITHAK-CO-UK:{{ $store.getters['dir'] }}$</span>
+        <span>guest@CARLWITHAK-CO-UK:{{ $store.getters['files/get']($store.getters['dir']).name }}$</span>
       </div>
       <div class="px-2 flex-auto">
         <input

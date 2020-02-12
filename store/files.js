@@ -10,16 +10,17 @@ export const state = () => ({
     { name: 'gaming', type: 'file' },
     { name: 'football', type: 'file' }
   ]
+  // Add in dirs/files linking back to their ID for easy reference
 })
 
 export const getters = {
-  listing (state) {
-    return state.listing
-  },
   get (state) {
     return (id) => {
       return state.listing[id]
     }
+  },
+  listing (state) {
+    return state.listing
   },
   active (state) {
     return state.active

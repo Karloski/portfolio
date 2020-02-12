@@ -17,6 +17,7 @@
       </table>
     </div>
     <div v-else>
+      <!-- Cat/CD the name of the file and not the ID -->
       <div v-if="args.indexOf('-l') !== -1">
         <ul>
           <li v-for="file of files" :key="file">
@@ -27,7 +28,7 @@
         </ul>
       </div>
       <div v-else>
-        <ul>
+        <ul class="inline">
           <li v-for="file of files" :key="file">
             <nuxt-link v-if="$store.getters['files/get'](file).type === 'file'" :to="`cat?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
             <nuxt-link v-else :to="`cd?args=${file}`" >{{ $store.getters['files/get'](file).name }}</nuxt-link>
@@ -46,7 +47,7 @@ export default {
     },
     files () {
       // FIXME: Not particularly defensive
-      return this.$store.getters['files/get'](this.$store.getters['dir']).files
+      return this.$store.getters['files/get'](this.$store.getters.dir).files
     }
   },
   mounted () {

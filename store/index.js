@@ -28,7 +28,7 @@ export const mutations = {
 }
 
 export const actions = {
-  dir ({ state, getters }, dir) {
+  dir ({ commit }, dir) {
     commit('dir', dir)
   }
 }
